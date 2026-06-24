@@ -1,17 +1,18 @@
 import pandas as pd
 import networkx as nx
 from pyvis.network import Network
+import funcoes
 
 triples = {
-    ("item_001", "crafta", "item_002"),
-    ("item_002", "crafta", "item_003"),
-    ("item_003", "crafta", "item_004"),
-    ("item_002", "crafta", "item_004"),
-    ("item_004", "quebra", "item_005"),
-    ("item_005", "e_quebrado_em", "item_006"),
-    ("item_006", "crafta", "item_007"),
-    ("item_003", "crafta", "item_007"),
-    ("item_006", "crafta", "item_008"),
+    ("madeira", "crafta", "tabua"),
+    ("tabua", "crafta", "graveto"),
+    ("graveto", "crafta", "picareta_de_madeira"),
+    ("tabua", "crafta", "picareta_de_madeira"),
+    ("picareta_de_madeira", "quebra", "pedra"),
+    ("pedra", "e_quebrado_em", "pedregulho"),
+    ("pedregulho", "crafta", "picareta_de_pedra"),
+    ("graveto", "crafta", "picareta_de_pedra"),
+    ("pedregulho", "crafta", "fornalha"),
 }
 
 df = pd.DataFrame(
@@ -20,47 +21,41 @@ df = pd.DataFrame(
 )
 
 nodes = {
-    "item_001": {
-        "nome": "madeira",
+    "madeira": {
         "tipo": "bloco",
         "imagem": "icons/madeira.png"
     },
-    "item_002": {
-        "nome": "tabua",
+    "tabua": {
         "tipo": "bloco",
         "imagem": "icons/tabua.png"
     },
-    "item_003": {
-        "nome": "graveto",
+    "graveto": {
         "tipo": "recurso",
         "imagem": "icons/graveto.png"
     },
-    "item_004": {
-        "nome": "picareta_de_madeira",
+    "picareta_de_madeira": {
         "tipo": "ferramenta",
         "imagem": "icons/picareta_de_madeira.png"
     },
-    "item_005": {
-        "nome": "pedra",
+    "pedra": {
         "tipo": "bloco",
         "imagem": "icons/pedra.png"
     },
-    "item_006": {
-        "nome": "pedregulho",
+    "pedregulho": {
         "tipo": "bloco",
         "imagem": "icons/pedregulho.png"
     },
-    "item_007": {
-        "nome": "picareta_de_pedra",
+    "picareta_de_pedra": {
         "tipo": "ferramenta",
         "imagem": "icons/picareta_de_pedra.png"
     },
-    "item_008": {
-        "nome": "fornalha",
+    "fornalha": {
         "tipo": "bloco",
         "imagem": "icons/fornalha.png"
     }
 }
+
+# funcoes.add_node(nodes)
 
 G = nx.DiGraph()
 
@@ -85,7 +80,7 @@ net.barnes_hut()
 for node_id, attrs in G.nodes(data=True):
     net.add_node(
         node_id,
-        label=attrs["nome"],
+        label=node_id,
         title=f"Tipo: {attrs["tipo"]}",
         shape="image",
         image=attrs["imagem"],
