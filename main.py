@@ -55,8 +55,9 @@ nodes = {
     }
 }
 
-funcoes.add_node(nodes)
-funcoes.add_relacao(triples,"graveto","crafta","espada_de_madeira")
+#funcoes.add_node(nodes)
+#funcoes.add_relacao(triples,"graveto","crafta","espada_de_madeira")
+funcoes.excluir_no(triples,nodes)
 
 G = nx.DiGraph()
 
