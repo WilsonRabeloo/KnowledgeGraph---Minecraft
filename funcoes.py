@@ -29,6 +29,22 @@ def excluir_no(tp,nd):
     tp.update(tp_excluindo)
     print("o elemento '{elem}' e suas relações foram excluidos da base de dados.".format(elem = elem))
 
+def consultar(nd,tp):
+    elem = input("elemento: ")
+    if elem not in nd:
+        print("elemento não encontardo na base de dados.")
+        return
+    else:
+        print("> INFORMAÇÕES DO ELEMENTO: <")
+        print("tipo: " + nd[elem].get("tipo", "Não informado"))
+        print("endereco_de_imagem: " + nd[elem].get("imagem", "Não informado"))
+        print("")
+        print("> CONEXÕES: <")
+        for s,p,o in tp:
+            if s == elem or o == elem:
+                print(f"  {s} --({p})--> {o}")
+
+
 
 
 
