@@ -44,6 +44,11 @@ def consultar(nd,tp):
             if s == elem or o == elem:
                 print(f"  {s} --({p})--> {o}")
 
+def exibir_menu():
+    print("Digite 1: para adicionar um novo elemento")
+    print("Digite 2: para remover um elemento")
+    print("Digite 3: para adicionar uma nova relação")
+
 
 
 

@@ -55,48 +55,105 @@ nodes = {
     }
 }
 
-#funcoes.add_node(nodes)
-#funcoes.add_relacao(triples,"graveto","crafta","espada_de_madeira")
-#funcoes.excluir_no(triples,nodes)
 
-G = nx.DiGraph()
+#
+# G = nx.DiGraph()
+#
+# for node_id, attrs in nodes.items():
+#     G.add_node(node_id, **attrs)
+#
+# for head, relation, tail, in triples:
+#     G.add_edge(
+#         head,
+#         tail,
+#         relation=relation
+#     )
+#
+# net = Network(
+#     height="750px",
+#     width="100%",
+#     directed=True
+# )
+#
+# net.barnes_hut()
+#
+# for node_id, attrs in G.nodes(data=True):
+#     net.add_node(
+#         node_id,
+#         label=node_id,
+#         title=f"Tipo: {attrs["tipo"]}",
+#         shape="image",
+#         image=attrs["imagem"],
+#         size=30
+#     )
+#
+# for source, target, attrs in G.edges(data=True):
+#     net.add_edge(
+#         source,
+#         target,
+#         label=attrs["relation"],
+#     )
+#
+# net.write_html("minecraft_kg.html")
 
-for node_id, attrs in nodes.items():
-    G.add_node(node_id, **attrs)
+def salvar_grafo_html(nodes, triples):
+    G = nx.DiGraph()
 
-for head, relation, tail, in triples:
-    G.add_edge(
-        head,
-        tail,
-        relation=relation
+    for node_id, attrs in nodes.items():
+        G.add_node(node_id, **attrs)
+
+    for head, relation, tail in triples:
+        G.add_edge(
+            head,
+            tail,
+            relation=relation
+        )
+
+    net = Network(
+        height="750px",
+        width="100%",
+        directed=True
     )
+    net.barnes_hut()
 
-net = Network(
-    height="750px",
-    width="100%",
-    directed=True
-)
+    for node_id, attrs in G.nodes(data=True):
+        net.add_node(
+            node_id,
+            label=node_id,
+            title=f"Tipo: {attrs.get('tipo', 'Desconhecido')}",
+            shape="image",
+            image=attrs.get('imagem', ''),
+            size=30
+        )
 
-net.barnes_hut()
+    for source, target, attrs in G.edges(data=True):
+        net.add_edge(
+            source,
+            target,
+            label=attrs["relation"],
+        )
 
-for node_id, attrs in G.nodes(data=True):
-    net.add_node(
-        node_id,
-        label=node_id,
-        title=f"Tipo: {attrs["tipo"]}",
-        shape="image",
-        image=attrs["imagem"],
-        size=30
-    )
+    net.write_html("minecraft_kg.html")
+    print("🔄 Grafo visual atualizado com sucesso em 'minecraft_kg.html'!")
 
-for source, target, attrs in G.edges(data=True):
-    net.add_edge(
-        source,
-        target,
-        label=attrs["relation"],
-    )
 
-net.write_html("minecraft_kg.html")
+while True:
+    funcoes.exibir_menu()
+    opcao = input("Escolha o que deseja fazer: ")
 
-funcoes.consultar(nodes,triples)
+    if opcao == "1":
+        funcoes.add_node(nodes)
+        salvar_grafo_html(nodes, triples)
+
+    elif opcao == "2":
+        funcoes.excluir_no(nodes, triples)
+        salvar_grafo_html(nodes, triples)
+
+    elif opcao == "3":
+        funcoes.add_relacao(triples)
+        salvar_grafo_html(nodes, triples)
+
+    elif opcao == "4":
+        print("encerrar processo")
+        break
 
