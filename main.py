@@ -435,6 +435,10 @@ while True:
         salvar_grafo_html(nodes, triples)
 
     elif opcao == "4":
+        funcoes.excluir_relacao(triples)
+        salvar_grafo_html(nodes, triples)
+
+    elif opcao == "5":
         print("encerrar processo")
         salvar_grafo_html(nodes, triples)
         break

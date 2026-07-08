@@ -29,6 +29,23 @@ def excluir_no(tp,nd):
     tp.update(tp_excluindo)
     print("o elemento '{elem}' e suas relações foram excluidos da base de dados.".format(elem = elem))
 
+def excluir_relacao(tp):
+    elem = input("de que elemento você vai excluir uma relação?: ")
+    other = input ("você vai excluir uma relção dele com quem?: ")
+
+    tripla_encontrada = None
+    for s,p,o in tp:
+        if s == elem and o == other:
+            tripla_encontrada = (s, p, o)
+            break
+
+    if tripla_encontrada is not None:
+        tp.remove(tripla_encontrada)
+        print("{Relação foi removida na base de dados}")
+    else:
+        print("{Nenhuma relação foi removida pois nenhuma relação com o critério estabelecido foi encontrada}")
+
+
 def consultar(nd,tp):
     elem = input("elemento: ")
     if elem not in nd:
@@ -44,10 +61,13 @@ def consultar(nd,tp):
             if s == elem or o == elem:
                 print(f"  {s} --({p})--> {o}")
 
+
 def exibir_menu():
     print("Digite 1: para adicionar um novo elemento")
     print("Digite 2: para remover um elemento")
     print("Digite 3: para adicionar uma nova relação")
+    print("Digite 4: para remover uma relação")
+    print("Digite 5: para encerrar o processo")
 
 
 
