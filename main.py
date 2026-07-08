@@ -58,6 +58,7 @@ nodes = {
 #funcoes.add_node(nodes)
 #funcoes.add_relacao(triples,"graveto","crafta","espada_de_madeira")
 #funcoes.excluir_no(triples,nodes)
+funcoes.excluir_relacao(triples)
 
 G = nx.DiGraph()
 
@@ -98,5 +99,6 @@ for source, target, attrs in G.edges(data=True):
 
 net.write_html("minecraft_kg.html")
 
-funcoes.consultar(nodes,triples)
+#funcoes.consultar(nodes,triples)
+
 

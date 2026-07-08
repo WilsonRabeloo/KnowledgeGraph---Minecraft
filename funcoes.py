@@ -45,6 +45,24 @@ def consultar(nd,tp):
                 print(f"  {s} --({p})--> {o}")
 
 
+def excluir_relacao(tp):
+    elem = input("de que elemento você vai excluir uma relação?: ")
+    other = input ("você vai excluir uma relção dele com quem?: ")
+
+    tripla_encontrada = None
+    for s,p,o in tp:
+        if s == elem and o == other:
+            tripla_encontrada = (s, p, o)
+            break
+
+    if tripla_encontrada is not None:
+        tp.remove(tripla_encontrada)
+        print("{Relação foi removida na base de dados}")
+    else:
+        print("{Nenhuma relação foi removida pois nenhuma relação com o critério estabelecido foi encontrada}")
+
+
+
 
 
 
